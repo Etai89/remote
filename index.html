@@ -3,13 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remote</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Store Input Value</title>
 </head>
 <body>
     <h1 id="gooj">hello</h1>
-    <p id="joo">testttt paragraph</p>
+    <p id="joo">test paragraph output</p>
 
-    <script src="index.js"></script>
+    <label for="user">Enter value:</label>
+    <input id="user" type="text" placeholder="the value">
+    <input id="btn" type="button" value="click">
+    <p id="output1"></p>
+
+    <script>
+        // Function to store value in localStorage and update the paragraph
+        function storeValue() {
+            const userValue = document.getElementById('user').value;
+
+            // Store the value in localStorage
+            localStorage.setItem('storedValue', JSON.stringify({ value: userValue }));
+
+            // Update the paragraph with the new value
+            document.getElementById('output1').innerText = userValue;
+        }
+
+        // Function to retrieve and display the stored value when the page loads
+        function loadValue() {
+            const storedData = localStorage.getItem('storedValue');
+            if (storedData) {
+                const parsedData = JSON.parse(storedData);
+                document.getElementById('output1').innerText = parsedData.value;
+            }
+        }
+
+        // Load the stored value when the page loads
+        window.onload = loadValue;
+
+        // Add event listener to the button to store the value when clicked
+        document.getElementById('btn').addEventListener('click', storeValue);
+    </script>
 </body>
 </html>
